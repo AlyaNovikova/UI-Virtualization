@@ -132,7 +132,7 @@ $RECYCLE.BIN/
 
 _NCrunch*
 
-.vc/
-*vc/
-.vc
-*vc
+.vs/
+*vs/
+.vs
+*vs
