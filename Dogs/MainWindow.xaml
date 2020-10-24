@@ -5,20 +5,16 @@
 
     <Window.Resources>
         <DataTemplate x:Key="DogTemplate" >
-            <StackPanel>
-                <StackPanel.Resources>
-                    <Style TargetType="{x:Type TextBox}">
-                        <Setter Property="Margin" Value="0,10,0,0"/>
-                    </Style>
-                </StackPanel.Resources>
+            <VirtualizingStackPanel>
                 <TextBlock Text="{Binding Title}" />
                 <Image Source="{Binding Data}" Width="100" Height="100" />
                 <Button Content="Delete" Click="DeleteDog_Clicked"/>
-            </StackPanel>
+            </VirtualizingStackPanel>
         </DataTemplate>
     </Window.Resources>
 
     <ListBox IsSynchronizedWithCurrentItem="True"
                      Name="DogsList" ItemsSource="{Binding}"
                      ItemTemplate="{StaticResource DogTemplate}" />
+
 </Window>
