@@ -50,10 +50,8 @@ namespace Virtualization
         {
 
             Button cmd = (Button)sender;
-            if (cmd.DataContext is Dog)
+            if (cmd.DataContext is Dog deleteme)
             {
-
-                Dog deleteme = (Dog)cmd.DataContext;
                 Dogs.Remove(deleteme);
             }
         }
