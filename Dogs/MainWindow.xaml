@@ -5,16 +5,14 @@
 
     <Window.Resources>
         <DataTemplate x:Key="DogTemplate" >
-            <VirtualizingStackPanel>
-                <TextBlock Text="{Binding Title}" />
-                <Image Source="{Binding Data}" Width="100" Height="100" />
-                <Button Content="Delete" Click="DeleteDog_Clicked"/>
+            <VirtualizingStackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                <TextBlock Text="{Binding Title}"  Width="100"  HorizontalAlignment="Left" />
+                <TextBlock Text="{Binding Breed}"  Width="200"  HorizontalAlignment="Center"/>
+                <Image Source="{Binding Image}" Width="200" Height="200" HorizontalAlignment="Right" />
             </VirtualizingStackPanel>
         </DataTemplate>
     </Window.Resources>
 
-    <ListBox IsSynchronizedWithCurrentItem="True"
-                     Name="DogsList" ItemsSource="{Binding}"
-                     ItemTemplate="{StaticResource DogTemplate}" />
+    <ListBox ItemsSource="{Binding}" ItemTemplate="{DynamicResource DogTemplate}" />
 
 </Window>
