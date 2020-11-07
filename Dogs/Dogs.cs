@@ -6,6 +6,10 @@ using System.Threading;
 
 namespace Virtualization
 {
+    /// <summary>
+    /// Dog class - sample data class for virtualization testing.
+    /// </summary>
+    /// 
     public class Dog
     {
         public string Title { get; set; }
@@ -13,6 +17,16 @@ namespace Virtualization
         public string Image { get; set; }
     }
 
+    /// <summary>
+    /// Implementing the IData Interface for the Dog class.
+    /// The data is in the 'Dogs/' folder.
+    /// It contains several images and breeds of dogs, 
+    /// which are generated in a random order with repetitions for each data request.
+    /// 
+    /// An artificial data delay is invoked on every data request,
+    /// to simulate real conditions of interaction with large collections.
+    /// </summary>
+    /// 
     public class DogData : IData<Dog>
     {
         private readonly int elements;

@@ -1,14 +1,20 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
+using System.Windows.Threading;
 
 namespace Virtualization
 {
     /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
+    /// Communication logic for MainWindow.xaml
     /// </summary>
     /// 
 
     public partial class MainWindow : Window
     {
+        /// <summary>
+        /// Creating sample data with test constants
+        /// </summary>
+        /// 
         public MainWindow()
         {
             InitializeComponent();
@@ -17,12 +23,17 @@ namespace Virtualization
             int delay = 1000;
             int pageSize = 100;
 
+            // DispatcherTimer setup
+            DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
+            dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
+            dispatcherTimer.Start();
+
             DogData dogData = new DogData(elements, delay);
 
             DataContext = new DataVirtualization<Dog>(dogData, pageSize);
 
-
-            ///-- Версия без виртуализации
+            ///-- Version without virtualization
 
             //ObservableCollection<Dog> Dogs = new ObservableCollection<Dog>();
 
@@ -37,6 +48,16 @@ namespace Virtualization
 
             //DataContext = Dogs;
             //DogsList.ItemsSource = Dogs;
+        }
+
+        /// <summary>
+        /// System.Windows.Threading.DispatcherTimer.Tick handler
+        /// </summary>
+        /// 
+        private void dispatcherTimer_Tick(object sender, EventArgs e)
+        {
+            double memory = GC.GetTotalMemory(true) / (double)(1024 * 1024);
+            lblMemory.Text = string.Format("{0} MB", memory.ToString("0.####"));
         }
     }
 }

@@ -5,32 +5,37 @@ using System.Collections.ObjectModel;
 
 namespace Virtualization
 {
+    /// <summary>
+    /// Synchronous version of virtualization.
+    /// Implementing the IList interface for data conforming to the IData interface
+    /// </summary>
+    /// 
     class DataVirtualization<T> : ObservableCollection<T>, IList
     {
-        private IData<T> Data { get; }
-        private int Size { get; } = 100; 
-        private int Lifetime { get; } = 10000;
+        private IData<T> data { get; }
+        private int size { get; } = 100; 
+        private int lifetime { get; } = 10000;
         private int count = -1;
 
-        private Dictionary<int, IList<T>> Pages = new Dictionary<int, IList<T>>();
-        private Dictionary<int, DateTime> LastUse = new Dictionary<int, DateTime>();
+        private Dictionary<int, IList<T>> pages = new Dictionary<int, IList<T>>();
+        private Dictionary<int, DateTime> lastUse = new Dictionary<int, DateTime>();
 
         public DataVirtualization(IData<T> data, int size)
         {
-            this.Data = data;
-            this.Size = size;
+            this.data = data;
+            this.size = size;
         }
 
         public DataVirtualization(IData<T> data)
         {
-            this.Data = data;
+            this.data = data;
         }
 
         public int Count
         {
             get { 
                 if (count == -1) {
-                    Count = Data.Available();
+                    Count = data.Available();
                 }
                 return count;
             }
@@ -40,11 +45,11 @@ namespace Virtualization
         public T this[int i]
         {
             get {
-                int page = i / Size;
-                int offset = i % Size;
+                int page = i / size;
+                int offset = i % size;
 
                 RequestPage(page);
-                if (offset > Size / 2 && page < Count / Size) {
+                if (offset > size / 2 && page < Count / size) {
                     RequestPage(page + 1);
                 } else if (page > 0) {
                     RequestPage(page - 1);
@@ -52,7 +57,7 @@ namespace Virtualization
 
                 Clean();
 
-                return Pages[page][offset];
+                return pages[page][offset];
             }
         }
 
@@ -64,28 +69,28 @@ namespace Virtualization
 
         public void Clean()
         {
-            ObservableCollection<int> lastPages = new ObservableCollection<int>(LastUse.Keys);
+            ObservableCollection<int> lastPages = new ObservableCollection<int>(lastUse.Keys);
             foreach (int page in lastPages)
             {
-                if (page != 0 && (DateTime.Now - LastUse[page]).TotalMilliseconds > Lifetime) {
-                    Pages.Remove(page);
-                    LastUse.Remove(page);
+                if (page != 0 && (DateTime.Now - lastUse[page]).TotalMilliseconds > lifetime) {
+                    pages.Remove(page);
+                    lastUse.Remove(page);
                 }
             }
         }
 
         protected void RequestPage(int page)
         {
-            if (!Pages.ContainsKey(page))
+            if (!pages.ContainsKey(page))
             {
-                Pages.Add(page, null);
-                LastUse.Add(page, DateTime.MinValue);
+                pages.Add(page, null);
+                lastUse.Add(page, DateTime.MinValue);
 
-                ObservableCollection<T> newPage = Data.ListOfAvailable(page * Size, Size);
-                if (Pages.ContainsKey(page))
-                    Pages[page] = newPage;
+                ObservableCollection<T> newPage = data.ListOfAvailable(page * size, size);
+                if (pages.ContainsKey(page))
+                    pages[page] = newPage;
             }
-            LastUse[page] = DateTime.Now;
+            lastUse[page] = DateTime.Now;
         }
     }
 }
