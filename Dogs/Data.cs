@@ -14,6 +14,7 @@ namespace Virtualization
         ///
         int Available();
 
+        /// <summary>
         /// Returns a list of length cnt available elements from the start element
         /// </summary>
         ///
