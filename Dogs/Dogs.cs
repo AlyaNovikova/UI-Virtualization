@@ -32,53 +32,53 @@ namespace Virtualization
         private readonly int elements;
         private readonly int delay;
 
-    public DogData(int elements, int delay)
-    {
-        this.elements = elements;
-        this.delay = delay;
-    }
-
-    public int Available()
-    {
-        Thread.Sleep(delay);
-        return elements;
-    }
-
-    public ObservableCollection<Dog> ListOfAvailable(int start, int cnt)
-    {
-        Thread.Sleep(delay);
-
-        ObservableCollection<Dog> Dogs = new ObservableCollection<Dog>();
-
-        string dir = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-        string path = System.IO.Path.GetFullPath("../../Dogs/dogs.txt") ;
-        List<string> dogs_breed = new List<string>();
-
-        using (StreamReader sr = new StreamReader(path, System.Text.Encoding.Default))
+        public DogData(int elements, int delay)
         {
-            string line;
-            while ((line = sr.ReadLine()) != null)
+            this.elements = elements;
+            this.delay = delay;
+        }
+
+        public int Available()
+        {
+            Thread.Sleep(delay);
+            return elements;
+        }
+
+        public ObservableCollection<Dog> ListOfAvailable(int start, int cnt)
+        {
+            Thread.Sleep(delay);
+
+            ObservableCollection<Dog> Dogs = new ObservableCollection<Dog>();
+
+            string dir = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            string path = System.IO.Path.GetFullPath("../../Dogs/dogs.txt");
+            List<string> dogs_breed = new List<string>();
+
+            using (StreamReader sr = new StreamReader(path, System.Text.Encoding.Default))
             {
-                dogs_breed.Add(line);
+                string line;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    dogs_breed.Add(line);
+                }
             }
+            int bread_size = dogs_breed.Count;
+
+            Random rnd = new Random();
+
+            for (int i = start; i < start + cnt; i++)
+            {
+                int j = rnd.Next(0, bread_size);
+
+                int image_number = j + 1;
+                string image_name = String.Format("../../Dogs/{0}.jpg", image_number);
+
+                string image_path = System.IO.Path.GetFullPath(image_name);
+
+                Dog dog = new Dog { Title = (i + 1).ToString(), Breed = dogs_breed[j], Image = image_path };
+                Dogs.Add(dog);
+            }
+            return Dogs;
         }
-        int bread_size = dogs_breed.Count;
-
-        Random rnd = new Random();
-
-        for (int i = start; i < start + cnt; i++)
-        {
-            int j = rnd.Next(0, bread_size);
-
-            int image_number = j + 1;
-            string image_name = String.Format("../../Dogs/{0}.jpg", image_number);
-
-            string image_path = System.IO.Path.GetFullPath(image_name);
-
-            Dog dog = new Dog { Title = (i + 1).ToString(), Breed = dogs_breed[j], Image = image_path };
-            Dogs.Add(dog);
-        }
-        return Dogs;
     }
-}
 }

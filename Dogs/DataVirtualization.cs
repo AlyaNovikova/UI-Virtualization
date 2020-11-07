@@ -13,7 +13,7 @@ namespace Virtualization
     class DataVirtualization<T> : ObservableCollection<T>, IList
     {
         private IData<T> data { get; }
-        private int size { get; } = 100; 
+        private int size { get; } = 100;
         private int lifetime { get; } = 10000;
         private int count = -1;
 
@@ -33,8 +33,10 @@ namespace Virtualization
 
         public int Count
         {
-            get { 
-                if (count == -1) {
+            get
+            {
+                if (count == -1)
+                {
                     Count = data.Available();
                 }
                 return count;
@@ -44,14 +46,18 @@ namespace Virtualization
 
         public T this[int i]
         {
-            get {
+            get
+            {
                 int page = i / size;
                 int offset = i % size;
 
                 RequestPage(page);
-                if (offset > size / 2 && page < Count / size) {
+                if (offset > size / 2 && page < Count / size)
+                {
                     RequestPage(page + 1);
-                } else if (page > 0) {
+                }
+                else if (page > 0)
+                {
                     RequestPage(page - 1);
                 }
 
@@ -72,7 +78,8 @@ namespace Virtualization
             ObservableCollection<int> lastPages = new ObservableCollection<int>(lastUse.Keys);
             foreach (int page in lastPages)
             {
-                if (page != 0 && (DateTime.Now - lastUse[page]).TotalMilliseconds > lifetime) {
+                if (page != 0 && (DateTime.Now - lastUse[page]).TotalMilliseconds > lifetime)
+                {
                     pages.Remove(page);
                     lastUse.Remove(page);
                 }
