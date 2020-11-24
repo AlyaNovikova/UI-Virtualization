@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Threading;
 
@@ -19,9 +20,6 @@ namespace Virtualization
         {
             InitializeComponent();
 
-            int elements = 100000;
-            int delay = 1000;
-            int pageSize = 100;
 
             // DispatcherTimer setup
             DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
@@ -31,7 +29,7 @@ namespace Virtualization
 
             DogData dogData = new DogData(elements, delay);
 
-            DataContext = new DataVirtualization<Dog>(dogData, pageSize);
+            DataContext = new DataVirtualizationAsync<Dog>(dogData, size, lifetime, pagesForLoading);
 
             ///-- Version without virtualization
 
@@ -59,5 +57,28 @@ namespace Virtualization
             double memory = GC.GetTotalMemory(true) / (double)(1024 * 1024);
             lblMemory.Text = string.Format("{0} MB", memory.ToString("0.####"));
         }
+
+        /// <summary>
+        /// Data constants
+        /// </summary>
+        /// 
+
+        // Total number of items in the list
+        static readonly int elements = 500000;
+
+        // An artificial data delay. 
+        // It's invoked on every data request, 
+        // to simulate real conditions of interaction with large collections.
+        static readonly int delay = 1000;
+
+        // Size of one page
+        static readonly int size = 100;
+
+        // Time that new page is stored in the page dictionary
+        static readonly int lifetime = 10000;
+
+        // Constant for the asynchronous version.
+        // The number of pages that will be loaded asynchronously in the scrolling direction
+        static readonly int pagesForLoading = 2;
     }
 }

@@ -26,12 +26,12 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.ColumnSpan="2">
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.ColumnSpan="2">
             <TextBlock Text="Memory:" Margin="10" VerticalAlignment="Center"/>
             <TextBlock x:Name="lblMemory" Margin="10" Width="100" VerticalAlignment="Center"/>
         </StackPanel>
 
-        <ListBox Grid.Row="2" Margin="20" ItemsSource="{Binding}" ItemTemplate="{DynamicResource DogTemplate}" Grid.ColumnSpan="2" />
+        <ListBox Grid.Row="3" Margin="20" ItemsSource="{Binding}" ItemTemplate="{DynamicResource DogTemplate}" Grid.ColumnSpan="2" />
 
     </Grid>
 </Window>
