@@ -31,6 +31,13 @@
             <TextBlock x:Name="lblMemory" Margin="10" Width="100" VerticalAlignment="Center"/>
         </StackPanel>
 
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.ColumnSpan="2">
+            <TextBlock Text="Virtualization Version:" Margin="10" VerticalAlignment="Center"/>
+            <Button Content="Without virtualization" Click="Button_List" Margin="5" Width="150" VerticalAlignment="Center"/>
+            <Button Content="Sync virtualization" Click="Button_Sync" Margin="5" Width="150" VerticalAlignment="Center"/>
+            <Button Content="Async virtualization" Click="Button_Async" Margin="5" Width="150" VerticalAlignment="Center"/>
+        </StackPanel>
+
         <ListBox Grid.Row="3" Margin="20" ItemsSource="{Binding}" ItemTemplate="{DynamicResource DogTemplate}" Grid.ColumnSpan="2" />
 
     </Grid>
