@@ -29,8 +29,8 @@ namespace Virtualization
     /// 
     public class DogData : IData<Dog>
     {
-        private readonly int elements;
-        private readonly int delay;
+        private readonly int elements = 500000;
+        private readonly int delay = 1000;
 
         public DogData(int elements, int delay)
         {
@@ -49,8 +49,7 @@ namespace Virtualization
             Thread.Sleep(delay);
 
             ObservableCollection<Dog> Dogs = new ObservableCollection<Dog>();
-
-            string dir = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            _ = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
             string path = System.IO.Path.GetFullPath("../../Dogs/dogs.txt");
             List<string> dogs_breed = new List<string>();
 

@@ -10,28 +10,26 @@ namespace Virtualization
     /// Implementing the IList interface for data conforming to the IData interface
     /// </summary>
     /// 
-    class DataVirtualization<T> : ObservableCollection<T>, IList
+    public class DataVirtualization<T> : ObservableCollection<T>, IList
     {
-        private IData<T> data { get; }
-        private int size { get; } = 100;
-        private int lifetime { get; } = 10000;
-        private int count = -1;
+        protected IData<T> data { get; }
+        protected int size { get; } = 100;
+        protected int lifetime { get; } = 10000;
+        protected int count = -1;
 
-        private Dictionary<int, IList<T>> pages = new Dictionary<int, IList<T>>();
-        private Dictionary<int, DateTime> lastUse = new Dictionary<int, DateTime>();
+        protected Dictionary<int, IList<T>> pages = new Dictionary<int, IList<T>>();
+        protected Dictionary<int, DateTime> lastUse = new Dictionary<int, DateTime>();
 
-        public DataVirtualization(IData<T> data, int size)
+        public DataVirtualization() {}
+
+        public DataVirtualization(IData<T> data, int size, int lifetime)
         {
             this.data = data;
             this.size = size;
+            this.lifetime = lifetime;
         }
 
-        public DataVirtualization(IData<T> data)
-        {
-            this.data = data;
-        }
-
-        public int Count
+        public new virtual int Count
         {
             get
             {
@@ -41,10 +39,13 @@ namespace Virtualization
                 }
                 return count;
             }
-            set { count = value; }
+            set 
+            { 
+                count = value; 
+            }
         }
 
-        public T this[int i]
+        public new virtual T this[int i]
         {
             get
             {
@@ -69,24 +70,36 @@ namespace Virtualization
 
         object IList.this[int index]
         {
-            get { return this[index]; }
-            set { throw new NotSupportedException(); }
+            get 
+            { 
+                return this[index];
+            }
+            set 
+            { 
+                throw new NotSupportedException(); 
+            }
         }
 
-        public void Clean()
+        public virtual void Clean()
         {
+        
             ObservableCollection<int> lastPages = new ObservableCollection<int>(lastUse.Keys);
             foreach (int page in lastPages)
             {
-                if (page != 0 && (DateTime.Now - lastUse[page]).TotalMilliseconds > lifetime)
+                if (page != 0)
                 {
-                    pages.Remove(page);
-                    lastUse.Remove(page);
+                    double passed = (DateTime.Now - lastUse[page]).TotalMilliseconds;
+
+                    if (passed > lifetime)
+                    {
+                        pages.Remove(page);
+                        lastUse.Remove(page);
+                    }
                 }
             }
         }
 
-        protected void RequestPage(int page)
+        protected virtual void RequestPage(int page)
         {
             if (!pages.ContainsKey(page))
             {
@@ -95,7 +108,9 @@ namespace Virtualization
 
                 ObservableCollection<T> newPage = data.ListOfAvailable(page * size, size);
                 if (pages.ContainsKey(page))
+                {
                     pages[page] = newPage;
+                }
             }
             lastUse[page] = DateTime.Now;
         }
