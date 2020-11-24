@@ -27,10 +27,6 @@ namespace Virtualization
             dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
             dispatcherTimer.Start();
 
-            DogData dogData = new DogData(elements, delay);
-
-            DataContext = new DataVirtualizationAsync<Dog>(dogData, size, lifetime, pagesForLoading);
-
             ///-- Version without virtualization
 
             //ObservableCollection<Dog> Dogs = new ObservableCollection<Dog>();
@@ -80,5 +76,42 @@ namespace Virtualization
         // Constant for the asynchronous version.
         // The number of pages that will be loaded asynchronously in the scrolling direction
         static readonly int pagesForLoading = 2;
+
+
+        /// <summary>
+        /// Version without virtualization. Just a list of items
+        /// </summary>
+        /// 
+        private void Button_List(object sender, RoutedEventArgs e)
+        {
+            DogData dogData = new DogData(elements, delay);
+
+            int count = dogData.Available();
+            ObservableCollection<Dog> data = dogData.ListOfAvailable(0, count);
+
+            DataContext = data;
+        }
+
+        /// <summary>
+        /// Version with synchronous virtualization
+        /// </summary>
+        /// 
+        private void Button_Sync(object sender, RoutedEventArgs e)
+        {
+            DogData dogData = new DogData(elements, delay);
+
+            DataContext = new DataVirtualization<Dog>(dogData, size, lifetime);
+        }
+
+        /// <summary>
+        /// Version with asynchronous virtualization
+        /// </summary>
+        /// 
+        private void Button_Async(object sender, RoutedEventArgs e)
+        {
+            DogData dogData = new DogData(elements, delay);
+
+            DataContext = new DataVirtualizationAsync<Dog>(dogData, size, lifetime, pagesForLoading);
+        }
     }
 }
