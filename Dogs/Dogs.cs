@@ -50,7 +50,7 @@ namespace Virtualization
 
             ObservableCollection<Dog> Dogs = new ObservableCollection<Dog>();
             _ = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-            string path = System.IO.Path.GetFullPath("../../Dogs/dogs.txt");
+            string path = System.IO.Path.GetFullPath("../../dogs_data/breeds.txt");
             List<string> dogs_breed = new List<string>();
 
             using (StreamReader sr = new StreamReader(path, System.Text.Encoding.Default))
@@ -70,7 +70,7 @@ namespace Virtualization
                 int j = rnd.Next(0, bread_size);
 
                 int image_number = j + 1;
-                string image_name = String.Format("../../Dogs/{0}.jpg", image_number);
+                string image_name = String.Format("../../dogs_data/{0}.jpg", image_number);
 
                 string image_path = System.IO.Path.GetFullPath(image_name);
 
