@@ -46,5 +46,11 @@
     <Compile Include="DataVirtualizationAsync.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataModel\DogData.csproj">
+      <Project>{C0F3837C-60E1-4574-9E28-F43833C11ED5}</Project>
+      <Name>DogData</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
