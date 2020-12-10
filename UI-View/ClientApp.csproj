@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{9EAF1572-73E5-40E0-8A84-B49C63944EBA}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>Virtualization</RootNamespace>
-    <AssemblyName>Virtualization</AssemblyName>
+    <RootNamespace>ClientApp</RootNamespace>
+    <AssemblyName>ClientApp</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -65,10 +65,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Data.cs" />
-    <Compile Include="DataVirtualization.cs" />
-    <Compile Include="DataVirtualizationAsync.cs" />
-    <Compile Include="Dogs.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -99,6 +95,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataModel\DogData.csproj">
+      <Project>{397EEE35-BE86-4F34-ABFA-A330E83971E1}</Project>
+      <Name>DogData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VirtualizationController\Virtualization.csproj">
+      <Project>{CD37FD7E-F4F3-49E2-A035-2CFCC0BD0470}</Project>
+      <Name>Virtualization</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

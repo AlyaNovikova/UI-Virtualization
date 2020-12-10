@@ -20,7 +20,7 @@ namespace Virtualization
         protected Dictionary<int, IList<T>> pages = new Dictionary<int, IList<T>>();
         protected Dictionary<int, DateTime> lastUse = new Dictionary<int, DateTime>();
 
-        public DataVirtualization() {}
+        public DataVirtualization() { }
 
         public DataVirtualization(IData<T> data, int size, int lifetime)
         {
@@ -39,9 +39,9 @@ namespace Virtualization
                 }
                 return count;
             }
-            set 
-            { 
-                count = value; 
+            set
+            {
+                count = value;
             }
         }
 
@@ -70,19 +70,19 @@ namespace Virtualization
 
         object IList.this[int index]
         {
-            get 
-            { 
+            get
+            {
                 return this[index];
             }
-            set 
-            { 
-                throw new NotSupportedException(); 
+            set
+            {
+                throw new NotSupportedException();
             }
         }
 
         public virtual void Clean()
         {
-        
+
             ObservableCollection<int> lastPages = new ObservableCollection<int>(lastUse.Keys);
             foreach (int page in lastPages)
             {

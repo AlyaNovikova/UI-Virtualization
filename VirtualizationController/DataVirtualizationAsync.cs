@@ -109,7 +109,7 @@ namespace Virtualization
         private void GetPage(object state)
         {
 
-            int page = (int) state;
+            int page = (int)state;
 
             ObservableCollection<T> newPageList = data.ListOfAvailable(page * size, size);
 
