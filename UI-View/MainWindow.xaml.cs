@@ -1,9 +1,11 @@
-﻿using System;
+﻿using DogData;
+using System;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Threading;
+using Virtualization;
 
-namespace Virtualization
+namespace ClientApp
 {
     /// <summary>
     /// Communication logic for MainWindow.xaml
@@ -19,7 +21,6 @@ namespace Virtualization
         public MainWindow()
         {
             InitializeComponent();
-
 
             // DispatcherTimer setup
             DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
@@ -84,7 +85,7 @@ namespace Virtualization
         /// 
         private void Button_List(object sender, RoutedEventArgs e)
         {
-            DogData dogData = new DogData(elements, delay);
+            DogDataMock dogData = new DogDataMock(elements, delay);
 
             int count = dogData.Available();
             ObservableCollection<Dog> data = dogData.ListOfAvailable(0, count);
@@ -98,7 +99,7 @@ namespace Virtualization
         /// 
         private void Button_Sync(object sender, RoutedEventArgs e)
         {
-            DogData dogData = new DogData(elements, delay);
+            DogDataMock dogData = new DogDataMock(elements, delay);
 
             DataContext = new DataVirtualization<Dog>(dogData, size, lifetime);
         }
@@ -109,7 +110,7 @@ namespace Virtualization
         /// 
         private void Button_Async(object sender, RoutedEventArgs e)
         {
-            DogData dogData = new DogData(elements, delay);
+            DogDataMock dogData = new DogDataMock(elements, delay);
 
             DataContext = new DataVirtualizationAsync<Dog>(dogData, size, lifetime, pagesForLoading);
         }

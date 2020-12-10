@@ -3,20 +3,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Threading;
+using Virtualization;
 
-namespace Virtualization
+namespace DogData
 {
-    /// <summary>
-    /// Dog class - sample data class for virtualization testing.
-    /// </summary>
-    /// 
-    public class Dog
-    {
-        public string Title { get; set; }
-        public string Breed { get; set; }
-        public string Image { get; set; }
-    }
-
     /// <summary>
     /// Implementing the IData Interface for the Dog class.
     /// The data is in the 'Dogs/' folder.
@@ -27,12 +17,12 @@ namespace Virtualization
     /// to simulate real conditions of interaction with large collections.
     /// </summary>
     /// 
-    public class DogData : IData<Dog>
+    public class DogDataMock : IData<Dog>
     {
         private readonly int elements = 500000;
         private readonly int delay = 1000;
 
-        public DogData(int elements, int delay)
+        public DogDataMock(int elements, int delay)
         {
             this.elements = elements;
             this.delay = delay;
