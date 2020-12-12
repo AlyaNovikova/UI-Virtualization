@@ -44,7 +44,10 @@ namespace ClientApp
         /// 
         private void Button_List(object sender, RoutedEventArgs e)
         {
-            var data = DataControllerTest.Data_List();
+            //Test data without database
+            //var data = DataControllerTest.Data_List();
+
+            var data = DataController.Data_List();
 
             DataContext = data;
         }
@@ -55,7 +58,10 @@ namespace ClientApp
         /// 
         private void Button_Sync(object sender, RoutedEventArgs e)
         {
-            var data = DataControllerTest.Data_Sync();
+            //Test data without database
+            //var data = DataControllerTest.Data_Sync();
+
+            var data = DataController.Data_Sync();
 
             DataContext = data;
         }
@@ -66,7 +72,10 @@ namespace ClientApp
         /// 
         private void Button_Async(object sender, RoutedEventArgs e)
         {
-            var data = DataControllerTest.Data_Async();
+            //Test data without database
+            //var data = DataControllerTest.Data_Async();
+
+            var data = DataController.Data_Async();
 
             DataContext = data;
         }
