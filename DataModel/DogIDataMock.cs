@@ -16,12 +16,12 @@ namespace DogData
     /// to simulate real conditions of interaction with large collections.
     /// </summary>
     /// 
-    public class DogDataMock : IData<Dog>
+    public class DogIDataMock : IData<DogMock>
     {
         private readonly int elements = 500000;
         private readonly int delay = 1000;
 
-        public DogDataMock(int elements, int delay)
+        public DogIDataMock(int elements, int delay)
         {
             this.elements = elements;
             this.delay = delay;
@@ -33,11 +33,11 @@ namespace DogData
             return elements;
         }
 
-        public ObservableCollection<Dog> ListOfAvailable(int start, int cnt)
+        public ObservableCollection<DogMock> ListOfAvailable(int start, int cnt)
         {
             Thread.Sleep(delay);
 
-            ObservableCollection<Dog> Dogs = new ObservableCollection<Dog>();
+            ObservableCollection<DogMock> Dogs = new ObservableCollection<DogMock>();
             _ = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
             string path = System.IO.Path.GetFullPath("../../dogs_data/breeds.txt");
             List<string> dogs_breed = new List<string>();
@@ -63,7 +63,7 @@ namespace DogData
 
                 string image_path = System.IO.Path.GetFullPath(image_name);
 
-                Dog dog = new Dog { Title = (i + 1).ToString(), Breed = dogs_breed[j], Image = image_path };
+                DogMock dog = new DogMock { Title = (i + 1).ToString(), Breed = dogs_breed[j], Image = image_path };
                 Dogs.Add(dog);
             }
             return Dogs;

@@ -14,6 +14,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Virtualization", "..\VirtualizationController\Virtualization.csproj", "{CD37FD7E-F4F3-49E2-A035-2CFCC0BD0470}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DogData", "..\DataModel\DogData.csproj", "{C0F3837C-60E1-4574-9E28-F43833C11ED5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E89D7286-C578-466A-A46C-639E389C133F} = {E89D7286-C578-466A-A46C-639E389C133F}
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DogDatabase", "..\DogDatabase\DogDatabase.csproj", "{E89D7286-C578-466A-A46C-639E389C133F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +38,10 @@ Global
 		{C0F3837C-60E1-4574-9E28-F43833C11ED5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C0F3837C-60E1-4574-9E28-F43833C11ED5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C0F3837C-60E1-4574-9E28-F43833C11ED5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E89D7286-C578-466A-A46C-639E389C133F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E89D7286-C578-466A-A46C-639E389C133F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E89D7286-C578-466A-A46C-639E389C133F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E89D7286-C578-466A-A46C-639E389C133F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -41,6 +50,7 @@ Global
 		{9EAF1572-73E5-40E0-8A84-B49C63944EBA} = {7BF8CC76-7E40-42AE-902F-33CB17E70C25}
 		{CD37FD7E-F4F3-49E2-A035-2CFCC0BD0470} = {0430F6A9-C96C-4F3F-B3B1-70D97328ABF2}
 		{C0F3837C-60E1-4574-9E28-F43833C11ED5} = {B068F644-E761-47BA-BB4E-F78231BC94F1}
+		{E89D7286-C578-466A-A46C-639E389C133F} = {B068F644-E761-47BA-BB4E-F78231BC94F1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {563F301E-72E5-49C9-B852-0927B3B994F7}

@@ -32,19 +32,28 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dog.cs" />
-    <Compile Include="DogDataMock.cs" />
+    <Compile Include="DogDataProvider.cs" />
+    <Compile Include="DogIData.cs" />
+    <Compile Include="DogIDataMock.cs" />
+    <Compile Include="DogMapper.cs" />
     <Compile Include="IData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DogDatabase\DogDatabase.csproj">
+      <Project>{E89D7286-C578-466A-A46C-639E389C133F}</Project>
+      <Name>DogDatabase</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
