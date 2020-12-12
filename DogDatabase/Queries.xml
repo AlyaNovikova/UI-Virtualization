@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Root>
+    <Table Name="DOGS">
+        <Command Name="AllDogs">
+            select dogId, breed, image_data from [dbo].[Dogs] order by dogId
+        </Command>
+        
+        <Command Name="NumberOfDogs">
+            select count(*) as count from [dbo].[Dogs]
+        </Command>
+        
+        <Command Name="DataSegment">
+            select dogId, breed, image_data from [dbo].[Dogs] order by dogId offset @start rows fetch next @cnt rows only;
+        </Command>
+        
+        <Command Name="DogById">
+            select dogId, breed, image_data from [dbo].[Dogs] where DogId=@dogId
+        </Command>
+    </Table>
+</Root>

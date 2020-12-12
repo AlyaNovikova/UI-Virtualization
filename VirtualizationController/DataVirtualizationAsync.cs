@@ -1,5 +1,6 @@
 ﻿using DogData;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
@@ -15,13 +16,21 @@ namespace Virtualization
     /// 
     public class DataVirtualizationAsync<T> : DataVirtualization<T>, INotifyCollectionChanged
     {
+        public DataVirtualizationAsync(IData<T> data, int size, int lifetime, int maxPages, int pagesForLoading)
+            : base(data, size, lifetime, maxPages)
+        {
+            this.pagesForLoading = pagesForLoading;
+            synchronizationContext = SynchronizationContext.Current;
+        }
+
         public DataVirtualizationAsync(IData<T> data, int size, int lifetime, int pagesForLoading)
             : base(data, size, lifetime)
         {
             this.pagesForLoading = pagesForLoading;
             synchronizationContext = SynchronizationContext.Current;
         }
-        private int pagesForLoading { get; } = 2;
+
+        private int pagesForLoading { get; }
 
         private SynchronizationContext synchronizationContext { get; }
 
@@ -77,9 +86,17 @@ namespace Virtualization
             }
         }
 
+        private static int Compare(KeyValuePair<int, double> a, KeyValuePair<int, double> b)
+        {
+            return a.Value.CompareTo(b.Value);
+        }
+
         public override void Clean()
         {
+
             ObservableCollection<int> lastPages = new ObservableCollection<int>(lastUse.Keys);
+            List<KeyValuePair<int, double>> lastUseList = new List<KeyValuePair<int, double>>();
+
             foreach (int page in lastPages)
             {
                 if (page != 0)
@@ -91,6 +108,22 @@ namespace Virtualization
                         pages.Remove(page);
                         lastUse.Remove(page);
                     }
+                    else
+                    {
+                        lastUseList.Add(new KeyValuePair<int, double>(page, passed));
+                    }
+                }
+            }
+
+            int len = lastUseList.Count;
+            if (len > maxPages)
+            {
+                lastUseList.Sort(Compare);
+                for (int i = maxPages; i < len; i++)
+                {
+                    int page = lastUseList[i].Key;
+                    pages.Remove(page);
+                    lastUse.Remove(page);
                 }
             }
         }
@@ -188,7 +221,7 @@ namespace Virtualization
 
                 Clean();
 
-                if (pages[page] is null)
+                if ((!pages.ContainsKey(page)) || pages[page] is null)
                 {
                     return default;
                 }
