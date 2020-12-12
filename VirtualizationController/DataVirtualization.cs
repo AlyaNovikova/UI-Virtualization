@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 namespace Virtualization
 {
@@ -14,8 +15,10 @@ namespace Virtualization
     public class DataVirtualization<T> : ObservableCollection<T>, IList
     {
         protected IData<T> data { get; }
-        protected int size { get; } = 100;
-        protected int lifetime { get; } = 10000;
+        protected int size { get; }
+        protected int lifetime { get; }
+        protected int maxPages { get; }
+
         protected int count = -1;
 
         protected Dictionary<int, IList<T>> pages = new Dictionary<int, IList<T>>();
@@ -28,6 +31,14 @@ namespace Virtualization
             this.data = data;
             this.size = size;
             this.lifetime = lifetime;
+        }
+
+        public DataVirtualization(IData<T> data, int size, int lifetime, int maxPages)
+        {
+            this.data = data;
+            this.size = size;
+            this.lifetime = lifetime;
+            this.maxPages = maxPages;
         }
 
         public new virtual int Count
@@ -81,10 +92,17 @@ namespace Virtualization
             }
         }
 
+        private static int Compare(KeyValuePair<int, double> a, KeyValuePair<int, double> b)
+        {
+            return a.Value.CompareTo(b.Value);
+        }
+
         public virtual void Clean()
         {
 
             ObservableCollection<int> lastPages = new ObservableCollection<int>(lastUse.Keys);
+            List<KeyValuePair<int, double>> lastUseList = new List<KeyValuePair<int, double>>();
+
             foreach (int page in lastPages)
             {
                 if (page != 0)
@@ -95,7 +113,23 @@ namespace Virtualization
                     {
                         pages.Remove(page);
                         lastUse.Remove(page);
+                    } 
+                    else
+                    {
+                        lastUseList.Add(new KeyValuePair<int, double>(page, passed));
                     }
+                }
+            }
+
+            int len = lastUseList.Count;
+            if (len > maxPages)
+            {
+                lastUseList.Sort(Compare);
+                for(int i = maxPages; i < len; i++)
+                {
+                    int page = lastUseList[i].Key;
+                    pages.Remove(page);
+                    lastUse.Remove(page);
                 }
             }
         }
