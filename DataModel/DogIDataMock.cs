@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Configuration;
 using System.IO;
 using System.Threading;
 
@@ -18,8 +19,13 @@ namespace DogData
     /// 
     public class DogIDataMock : IData<DogMock>
     {
-        private readonly int elements = 500000;
-        private readonly int delay = 1000;
+        private readonly int elements = getParameter("elements");
+        private readonly int delay = getParameter("delay");
+
+        private static int getParameter(string parameterName)
+        {
+            return Convert.ToInt32(ConfigurationManager.AppSettings[parameterName]);
+        }
 
         public DogIDataMock(int elements, int delay)
         {
