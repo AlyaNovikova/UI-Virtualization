@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -12,7 +13,7 @@ namespace DogData
 {
     public class DogIData : IData<Dog>
     {
-        private readonly int delay = 10;
+        private readonly int delay = Convert.ToInt32(ConfigurationManager.AppSettings["delay"]);
 
         public DogIData(int delay)
         {
