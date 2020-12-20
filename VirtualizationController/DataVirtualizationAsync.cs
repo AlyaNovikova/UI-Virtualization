@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using System.Threading;
 
 namespace Virtualization
@@ -14,8 +15,28 @@ namespace Virtualization
     /// Count pages are loaded asynchronously in the direction of the user's current scrolling.
     /// </summary>
     /// 
-    public class DataVirtualizationAsync<T> : DataVirtualization<T>, INotifyCollectionChanged
+    public class DataVirtualizationAsync<T> : DataVirtualization<T>, INotifyPropertyChanged, INotifyCollectionChanged
     {
+        private class Page
+        {
+            public int index;
+            public ObservableCollection<T> page;
+
+            public Page(int index, ObservableCollection<T> page)
+            {
+                this.index = index;
+                this.page = page;
+            }
+        }
+
+        private int pagesForLoading { get; }
+        public bool asyncLoading { get; set; }
+
+        private SynchronizationContext synchronizationContext { get; }
+
+        public new event NotifyCollectionChangedEventHandler CollectionChanged;
+        public new event PropertyChangedEventHandler PropertyChanged;
+
         public DataVirtualizationAsync(IData<T> data, int size, int lifetime, int maxPages, int pagesForLoading)
             : base(data, size, lifetime, maxPages)
         {
@@ -30,17 +51,13 @@ namespace Virtualization
             synchronizationContext = SynchronizationContext.Current;
         }
 
-        private int pagesForLoading { get; }
-
-        private SynchronizationContext synchronizationContext { get; }
-
-        public override event NotifyCollectionChangedEventHandler CollectionChanged;
-
-        protected override event PropertyChangedEventHandler PropertyChanged;
-
-        protected override void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
+        protected new void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
         {
             CollectionChanged?.Invoke(this, e);
+        }
+        protected void OnPropertyChanged([CallerMemberName] string property = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
         }
 
         public override int Count
@@ -67,10 +84,26 @@ namespace Virtualization
             }
         }
 
+        public bool AsyncLoading
+        {
+            get
+            {
+                return asyncLoading;
+            }
+            set
+            {
+                asyncLoading = value;
+
+                OnPropertyChanged("AsyncLoading");
+            }
+        }
+
+
         private void UpdateUIWithCount(object state)
         {
             Count = (int)state;
 
+            AsyncLoading = false;
             OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
         }
 
@@ -128,20 +161,9 @@ namespace Virtualization
             }
         }
 
-        private class Page
-        {
-            public int index;
-            public ObservableCollection<T> page;
-
-            public Page(int index, ObservableCollection<T> page)
-            {
-                this.index = index;
-                this.page = page;
-            }
-        }
-
         private void GetPage(object state)
         {
+            AsyncLoading = true;
 
             int page = (int)state;
 
@@ -164,6 +186,7 @@ namespace Virtualization
                 pages[index] = pageList;
             }
 
+            AsyncLoading = false;
             OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
         }
 
