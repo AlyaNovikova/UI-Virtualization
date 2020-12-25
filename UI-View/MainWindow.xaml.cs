@@ -59,7 +59,7 @@ namespace ClientApp
         private void Button_Sync(object sender, RoutedEventArgs e)
         {
             //Test data without database
-            //var data = DataControllerTest.Data_Sync();
+            //var data = DataControllerMock.Data_Sync();
 
             var data = DataController.Data_Sync();
 
@@ -73,7 +73,7 @@ namespace ClientApp
         private void Button_Async(object sender, RoutedEventArgs e)
         {
             //Test data without database
-            //var data = DataControllerTest.Data_Async();
+            //var data = DataControllerMock.Data_Async();
 
             var data = DataController.Data_Async();
 
