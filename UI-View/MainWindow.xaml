@@ -40,6 +40,12 @@
         <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.ColumnSpan="2">
             <TextBlock Text="Memory:" Margin="10" VerticalAlignment="Center"/>
             <TextBlock x:Name="lblMemory" Margin="10" Width="100" VerticalAlignment="Center"/>
+            <Button
+              Style="{StaticResource MaterialDesignFloatingActionButton}"
+              materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
+              materialDesign:ButtonProgressAssist.Value="75"
+              materialDesign:ButtonProgressAssist.IsIndeterminate="True"
+              Content="{materialDesign:PackIcon Dog}" Height="30" Margin="10" Width="30" />
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.ColumnSpan="2">
