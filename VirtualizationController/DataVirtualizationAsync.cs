@@ -192,6 +192,7 @@ namespace Virtualization
 
         protected override void RequestPage(int page)
         {
+            Trace.WriteLine("FFFFFFFFFffff", page.ToString());
             if (!pages.ContainsKey(page))
             {
                 pages.Add(page, null);
@@ -229,14 +230,14 @@ namespace Virtualization
 
                 if (offset > size / 2)
                 {
-                    for (int bias = 0; bias < pagesForLoading; bias++)
+                    for (int bias = 1; bias < pagesForLoading; bias++)
                     {
                         TryToRequestNextPage(page + bias);
                     }
                 }
                 else
                 {
-                    for (int bias = 0; bias < pagesForLoading; bias++)
+                    for (int bias = 1; bias < pagesForLoading; bias++)
                     {
                         TryToRequestPreviousPage(page - bias);
                     }

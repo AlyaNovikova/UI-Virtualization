@@ -38,7 +38,7 @@ namespace DogData
                 {
                     Title = dogDataBase.DogId.ToString(),
                     Breed = dogDataBase.Breed,
-                    Image = dogDataBase.Image_data
+                    Image = dogDataBase.Image_data 
                 };
 
                 Dogs.Add(dog);
@@ -57,7 +57,7 @@ namespace DogData
                 {
                     Title = dogDataBase.DogId.ToString(),
                     Breed = dogDataBase.Breed,
-                    Image = dogDataBase.Image_data
+                    Image =  dogDataBase.Image_data 
                 };
 
                 Dogs.Add(dog);

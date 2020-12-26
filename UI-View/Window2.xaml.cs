@@ -1,19 +1,27 @@
 ﻿using System;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 using System.Windows.Threading;
 using Virtualization;
 
 namespace ClientApp
 {
     /// <summary>
-    /// Communication logic for MainWindow.xaml
+    /// Логика взаимодействия для Window2.xaml
     /// </summary>
-    /// 
-
-    public partial class MainWindow : Window
+    public partial class Window2 : Window
     {
-        public MainWindow()
+        public Window2()
         {
             InitializeComponent();
 
@@ -46,6 +54,7 @@ namespace ClientApp
             var data = DataController.Data_List();
 
             DataContext = data;
+            treeView.ItemsSource = data;
         }
 
         /// <summary>
@@ -60,6 +69,7 @@ namespace ClientApp
             var data = DataController.Data_Sync();
 
             DataContext = data;
+            treeView.ItemsSource = data;
         }
 
         /// <summary>
@@ -74,13 +84,7 @@ namespace ClientApp
             var data = DataController.Data_Async();
 
             DataContext = data;
-        }
-
-        private void OtherControl(object sender, RoutedEventArgs e)
-        {
-            Window2 objSecondWindow = new Window2();
-            this.Visibility = Visibility.Hidden;
-            objSecondWindow.Show();
+            treeView.ItemsSource = data;
         }
     }
 }
