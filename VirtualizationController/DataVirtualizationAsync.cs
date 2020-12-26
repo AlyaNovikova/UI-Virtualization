@@ -192,7 +192,6 @@ namespace Virtualization
 
         protected override void RequestPage(int page)
         {
-            Trace.WriteLine("FFFFFFFFFffff", page.ToString());
             if (!pages.ContainsKey(page))
             {
                 pages.Add(page, null);
