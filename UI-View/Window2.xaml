@@ -6,6 +6,10 @@
         xmlns:self="clr-namespace:DogData;assembly=DogData"
         xmlns:local="clr-namespace:ClientApp" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="14"
         Title="TreeView Control" Height="700" Width="700">
     <Window.Resources>
         <DataTemplate x:Key="DogTemplate" >
