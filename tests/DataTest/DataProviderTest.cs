@@ -12,7 +12,7 @@ namespace DataTest
         public void TestNumberOfDogs()
         {
             int cnt = DogDataProvider.NumberOfDogs();
-  
+
             Assert.IsTrue(cnt > 0);
         }
 

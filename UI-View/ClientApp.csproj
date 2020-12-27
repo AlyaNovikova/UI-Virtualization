@@ -121,12 +121,12 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataModel\DogData.csproj">
-      <Project>{C0F3837C-60E1-4574-9E28-F43833C11ED5}</Project>
+    <ProjectReference Include="..\src\DataModel\DogData.csproj">
+      <Project>{c0f3837c-60e1-4574-9e28-f43833c11ed5}</Project>
       <Name>DogData</Name>
     </ProjectReference>
-    <ProjectReference Include="..\VirtualizationController\Virtualization.csproj">
-      <Project>{CD37FD7E-F4F3-49E2-A035-2CFCC0BD0470}</Project>
+    <ProjectReference Include="..\src\VirtualizationController\Virtualization.csproj">
+      <Project>{cd37fd7e-f4f3-49e2-a035-2cfcc0bd0470}</Project>
       <Name>Virtualization</Name>
     </ProjectReference>
   </ItemGroup>
