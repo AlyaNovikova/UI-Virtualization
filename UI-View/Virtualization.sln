@@ -24,6 +24,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{25F82763
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataTest", "..\DataTest\DataTest.csproj", "{B5F01E71-26EE-40FE-AB7F-FA9D42B2EE3D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirtualizationTest", "..\VirtualizationTest\VirtualizationTest.csproj", "{6051602D-0F84-47A0-8C04-7D48B75BB054}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,6 +52,10 @@ Global
 		{B5F01E71-26EE-40FE-AB7F-FA9D42B2EE3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B5F01E71-26EE-40FE-AB7F-FA9D42B2EE3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B5F01E71-26EE-40FE-AB7F-FA9D42B2EE3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6051602D-0F84-47A0-8C04-7D48B75BB054}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6051602D-0F84-47A0-8C04-7D48B75BB054}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6051602D-0F84-47A0-8C04-7D48B75BB054}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6051602D-0F84-47A0-8C04-7D48B75BB054}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,6 +66,7 @@ Global
 		{C0F3837C-60E1-4574-9E28-F43833C11ED5} = {B068F644-E761-47BA-BB4E-F78231BC94F1}
 		{E89D7286-C578-466A-A46C-639E389C133F} = {B068F644-E761-47BA-BB4E-F78231BC94F1}
 		{B5F01E71-26EE-40FE-AB7F-FA9D42B2EE3D} = {25F82763-50DE-4E69-AEDD-609AEEFA91B3}
+		{6051602D-0F84-47A0-8C04-7D48B75BB054} = {25F82763-50DE-4E69-AEDD-609AEEFA91B3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {563F301E-72E5-49C9-B852-0927B3B994F7}
