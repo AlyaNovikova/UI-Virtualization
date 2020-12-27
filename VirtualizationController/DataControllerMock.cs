@@ -20,6 +20,7 @@ namespace Virtualization
         private static int delay { get; } = getParameter("delay");
         private static int size { get; } = getParameter("size");
         private static int lifetime { get; } = getParameter("lifetime");
+        private static int maxPages { get; } = getParameter("maxPages");
         private static int pagesForLoading { get; } = getParameter("pagesForLoading");
 
 
@@ -50,7 +51,7 @@ namespace Virtualization
         {
             DogIDataMock dogData = new DogIDataMock(elements, delay);
 
-            return new DataVirtualization<DogMock>(dogData, size, lifetime);
+            return new DataVirtualization<DogMock>(dogData, size, lifetime, maxPages);
         }
 
         /// <summary>
@@ -61,7 +62,7 @@ namespace Virtualization
         {
             DogIDataMock dogData = new DogIDataMock(elements, delay);
 
-            return new DataVirtualizationAsync<DogMock>(dogData, size, lifetime, pagesForLoading);
+            return new DataVirtualizationAsync<DogMock>(dogData, size, lifetime, maxPages, pagesForLoading);
         }
     }
 }

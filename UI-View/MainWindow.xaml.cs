@@ -41,7 +41,7 @@ namespace ClientApp
         private void Button_List(object sender, RoutedEventArgs e)
         {
             //Test data without database
-            //var data = DataControllerTest.Data_List();
+            //var data = DataControllerMock.Data_List();
 
             var data = DataController.Data_List();
 
